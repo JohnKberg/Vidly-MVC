@@ -6,3 +6,10 @@
 }
 
 <h2>@Model.Name</h2>
+
+<ul>
+    <li>@Html.DisplayNameFor(m => m.Genre.Name): @Html.DisplayFor(m => m.Genre.Name)</li>
+    <li>@Html.DisplayNameFor(m => m.ReleaseDate): @Model.ReleaseDate.ToLongDateString()</li>
+    <li>@Html.DisplayNameFor(m => m.DateAdded): @Model.DateAdded.ToLongDateString()</li>
+    <li>@Html.DisplayNameFor(m => m.NumberInStock): @Model.NumberInStock</li>
+</ul>
