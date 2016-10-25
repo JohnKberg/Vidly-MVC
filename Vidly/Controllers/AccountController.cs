@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -151,10 +153,22 @@ namespace Vidly.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    DrivingLicense = model.DrivingLicense
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //////////////Temp code
+                    //////////////var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //////////////var RoleManager = new RoleManager<IdentityRole>(RoleStore);
+                    //////////////await RoleManager.CreateAsync(new IdentityRole("CanManageMovies"));
+                    //////////////await UserManager.AddToRoleAsync(user.Id, "CanManageMovies");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -367,7 +381,14 @@ namespace Vidly.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    DrivingLicense = model.DrivingLicense
+ 
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
